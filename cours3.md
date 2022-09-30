@@ -48,5 +48,16 @@ donne la même adresse pour des arguments différents
 
 ![Mémoire Virtuelle](images/memoire_virtuelle.png)
 
-Il existe une table de trnascription entre les adresses virtuelles et les adresses
-physiques.
+La mémoire telle qu'elle est vue par les processus est virtuelle, et les adresses ne correspondent pas aux adresses physiques.
+
+Il existe une table de transcription entre les adresses virtuelles et les adresses
+physiques. Cette table est physique.
+
+![](images/non.png)
+![](images/oui.png)
+
+## Résumé
+
+- Thread: fil d'éxécution
+- Processus: espace d'adressage virtuel
+- Les adresses mémoire dans un thread ne sont pas les mêmes que les adresses physiques sur la ram.
