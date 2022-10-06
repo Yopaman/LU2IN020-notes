@@ -60,4 +60,7 @@ physiques. Cette table est physique.
 
 - Thread: fil d'éxécution
 - Processus: espace d'adressage virtuel
+- Tuerun processus = abus de langage pour dire tuer un thread.
 - Les adresses mémoire dans un thread ne sont pas les mêmes que les adresses physiques sur la ram.
+
+![](images/resume_thread_processus.png)
