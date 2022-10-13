@@ -21,5 +21,3 @@ int main(int argc, char* argv) {
 Représentation de la mémoire virtuelle:
 
 ![](images/tas_pile_etc.png)
-
-## Shell
