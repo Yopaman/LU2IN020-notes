@@ -10,7 +10,7 @@ Le CPU accède aux données de la RAM mais pas du disque
 
 #### Noyau:
 
-- Système de gestion des fihchiers (ext4, ntfs...)
+- Système de gestion des fichiers (ext4, ntfs...)
 - Système de gestion de la mémoire
 - Ordonanceur (scheduler)
 
