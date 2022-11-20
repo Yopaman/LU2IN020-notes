@@ -1,4 +1,122 @@
-# Bash
+# Système
+
+## Définitions
+
+**Système:** couche logicielle qui offre une abstraction de ressources (matérielles ou logicielles)
+au travers d'une API (Application Programming Interface)
+
+**Système d'exploitation (OS):** Couche logicielle qui offre une abstraction du matériel
+pour les application
+
+**Noyau (kernel) de l'OS:** Partie de l'OS qui s'execute en mode prévilégié (Kernel Mode/Mode S)
+
+L'**OS** est composé:
+
+- d'un noyau
+
+- d'une bibliothèque simplifiant l'accès aux fonctionnalités, notemment une bibliothèque standard C _(facultatif)_
+
+- d'une interface graphique _(facultatif)_ - de services avancés comme des clients dhcp, ntp... _(facultatif)_
+
+Le **noyau** est composé:
+
+- d'un **ordonanceur** qui choisit quel fil d'execution s'éxecute dans le cpu à un instant donné
+
+- d'un **gestionnaire de mémoire** qui est responsable de l'association des adresses avec la mémoire physique
+
+- d'un **système de fichiers** qui tructure les données dans une arborescence et place/retrouve les données sur un support de stockage
+
+Le **CPU** possède un **registre de contrôle** qui fixe le mode de fonctionnement
+
+- mode dégradé (mode U) où:
+
+  - certaines adresses ne sont pas accessibles
+
+  - plusieurs instruction sont interdites
+
+- mode kernel (mode S) où:
+
+  - toutes les adresses sont accessibles
+
+  - toutes les instructions peuvent êtres executées
+
+**/!\ attention**, rien à voir avec le mode root/superuser/administrateur
+
+Dans les composants qui gèrent les données, il y a:
+
+- La **mémoire** dont les données sont accessibles directement par le CPU, par octets
+
+- Les **périphériques de stockage** qui sont le plus souvent accessibles par blocs,
+  non accessibles par le CPU, nécessitant l'utilisation de requêtes à un controlleur de disques.
+
+![](images/cours1.png)
+
+**Un thread** est caractérisé par un fil d'execution.
+
+Un **processus** est un espace d'adressage virtuel.
+Deux processus peuvent stocker une donnée différente dans la même adresse virtuelle, qui pointent sur des adresses physiques différents, en effet, chaque processus
+a ses propres adresses virtuelles.
+Chaque processus possède:
+
+- **la pile** où sont stockées les variables locales
+
+- **le tas** où les variables allouées dynamoquement sont stockées
+
+- **le data** où sont stockées les variables globales
+
+- un espace **text** où est stocké le ode (les instructions pour le processeur)
+
+- **les variables d'environnement**
+
+- **la table des fichiers ouverts**, où les premiers indices
+  correspondent au stdin, stdout et stderr (d'où le `2>` pour rediriger l'erreur standard)
+
+- les données du kernel sur le processus comme le PID, le PPID (pid du parent), le GID (id de groupe),
+  l'UID (user id), le current_diretory.
+
+Le CPU possède deux registres: le **RSP** qui pointe sur le bas de la pile, et le
+**RIP** qui pointe sur l'instruction actuellement executée.
+
+![](images/cours2-4.png)
+
+Lorsqu'un programme a besoin de réaliser une opération
+qui ne peut qu'être faite que par le kernel, comme par exemple ouvrir un fichier, il fait un **appel système**.
+Le processus passe alors en mode S lors de son execution sur le CPU. Un appel système cause une interruption. Des causes interruptions peuvent être:
+
+- Hardware (ex: horloge, clavier, etc...)
+
+- Logicielles (erreurs, appels système)
+
+Un processus peut faire un appel système `fork()`, qui crée un processus fils similaire
+à son père, avec comme différences:
+
+- son **PID**
+
+- son **PPID** qui est le PID du processus qui l'a créé
+
+- la valeur de retour de l'appel fork(): 0 pour le fils et le PID du fils pour le père
+
+Le fils execute le même code que le père, et puisque le processus père est cloné, le pointeur
+RIP pointe toujours sur l'instruction de retour du fork().
+
+Un autre appel système est `execX()` (execv(), execl()) et permet de changer le code qui
+s'execute.
+
+- Les données du kernel sont conservées (pid, ppid, uid, gid,...)
+
+- les variables d'env sont préservées
+
+- tout le reste de la mémoire est réinitialisée avec les variables du nouveau programme
+
+- la pile correspond au `main()` du nouveau programme avec comme `argv[]` les paramètres d'appel à `exec()`
+
+- le registre RIP est placé sur la première instruction du nouveau programme
+
+/!\ exec() ne crée pas de nouveau processus, et comme tout est perdu, il n'est pas possible de revenir dans le code qui contenait le exec()
+
+![](images/cours4.png)
+
+# Shell
 
 ## Variables
 
@@ -104,7 +222,7 @@ done < fichier
 Lis les lignes du fichier, en séparant les valeurs par un séparateur défini
 dans la variable `IFS`
 
-# Commandes
+## Commandes
 
 ## `echo -n "Hello"`
 
