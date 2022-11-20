@@ -4,6 +4,8 @@ Notes de cours pour l'UE LU2IN020 de licence informatique à Sorbonne Universit�
 
 ## Sommaire
 
+- [Résumé des cours](fiche.md)
+
 - [Cours 1](cours1.md)
 - [Cours 2](cours2.md)
 - [Cours 3](cours3.md)
