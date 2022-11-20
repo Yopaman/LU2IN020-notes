@@ -37,6 +37,10 @@ cat "$fichiers" # Affiche le contenu du fichier "a b c" (avec les espaces dans l
 
 `$((opération))` : devient le résultat de l'opération mathématique
 
+`mot{a,b,c}` : devient mota motb motc
+
+`mot{1..5}` : devient mot1 mot2 mot3 mot4 mot5
+
 `commande &` : redonne la main sur le shell après le lancement de la commande
 
 `commande1;commande2` : permet d'enchainer des commandes à la suite
