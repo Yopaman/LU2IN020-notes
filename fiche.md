@@ -197,7 +197,7 @@ fi
 - Sur les entiers:
   - `-eq` `-lt` `-le` `-gt` `-ge` (nom explicite)
 - Sur deux expressions booleennes:
-  - `-o` (or) -a (and)
+  - `-o` (or) `-a` (and)
 
 Renvoie `1` si vrai, `0` si faux
 
