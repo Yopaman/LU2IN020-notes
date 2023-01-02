@@ -116,6 +116,40 @@ s'execute.
 
 ![](images/cours4.png)
 
+L'ordre de lancement d'instruction par les processus dans le processeur sont gérés par **L'ordonanceur**. Chaque
+processus possède une donnée appéle son **état**. Les états possibles sont :
+
+- prêt
+- élu
+- bloqué
+- zombie
+
+**Prêt** est l'état qui indique qu'un processus peut être élu pour executer des instructions dans les registres du processeur.
+
+**Élu** est l'état où iun processeur a été choisi par l'ordonanceur
+
+**Bloqué** est un état spécial où un processus attend d'avoir accès à un verrou qui lui permet de faire une certaine opération 
+qui pourrait causer des problèmes si plusieurs processus la font en même temps.
+
+**Zombie** est l'état dans le quel se met un processus après sa mort.
+
+![](images/automate_states.png) 
+
+La **commutation** est le fait qu'un processus alterne avec un autre l'accès au processeur. Il existe deux modes : **batch** et **temps partagé**. En **batch**, il
+peut y avoir commutation lorsqu'un processus fait par exemple de l'entrée sortie (écriture dans un fichier). En **temps partagé**, un processus a un quantum (unité de temps)
+qui cause une commutation quand elle est dépassée. 
+
+Il est possible d'éffectuer une synchronisation des actions avec la commande `wait`, qui permet d'attendre que les processus enfants terminent leurs actions (ie meurent)
+pour débloquer les processus. 
+
+Les processus peuvent communiquer entre eux par **signaux**. L'envoi d'un signal est capturé dans l'autre processus par un **handler**, qui executera une action
+en fonction du signal. La liste des signaux peut être obtenue avec `kill -L` (voir la partie shell).
+
+Les processus peuvent parfois causer des comportements innatendus si ils accèdent en même temps au même fichier, par exemple. Pour palier à cela, on
+utilise des "barrières", qui permettent le blocage de tous les autres processus qui essayent de faire un certaine action. Il faut voir ça comme
+une barrière possédant une clé, et un processus prend la clé en passant la barrière et le ferme. Les autres processus doivent donc attendre que le processus reveienne
+et leur donne la clé pour passer.
+
 # Shell
 
 ## Variables
@@ -280,3 +314,34 @@ Coupe chaque ligne du stdin.
 Cherche les lignes correspondant à la recherche donnée, soit dans le stdin, soit dans un fichier.
 
 `-E` utilise une expression régulière
+
+## `sed`
+
+Permet d'effectuer des actions sur des flux de données, principalement des remplacement de patterns dans des chaines de caractères
+
+`-n` n'affiche pas le pattern modifié/supprimé
+
+La commande s'utilise sous la forme :
+
+`s/motif1/motif2/x` : remplace la xème apparition de `motif1` par `motif2`
+
+`s/motif1/motif2/g` : remplace tous les `motif1` par `motif2`
+
+`y/liste1/liste2`   : equivalent à `tr 'liste1' 'liste2'`
+
+`/motif/d`          : supprime les lignes contenant `motif`
+
+`/motif/p`          : affiche les lignes contenant `motif`
+
+## `kill`
+
+Permet d'envoyer un signal à un processus (spécifié par son PID)
+
+`-L` permet de lister les signaux possibles
+`-s [signal]` envoie le signal donné
+
+## `trap`
+
+Permet de réagir à un signal
+
+Exemple : `trap INT` réagit au signal `SIGINT` dans un script (ie les commandes après la commande trap vont s'executer)
