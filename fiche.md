@@ -344,4 +344,4 @@ Permet d'envoyer un signal à un processus (spécifié par son PID)
 
 Permet de réagir à un signal
 
-Exemple : `trap INT` réagit au signal `SIGINT` dans un script (ie les commandes après la commande trap vont s'executer)
+Exemple : `trap 'commande' INT` réagit au signal `SIGINT`
